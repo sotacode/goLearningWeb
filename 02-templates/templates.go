@@ -8,15 +8,17 @@ import (
 )
 
 type User struct {
-	Name string
-	Edad int
+	Name   string
+	Edad   int
+	Status bool
+	Admin  bool
 }
 
 func Index(rw http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintln(rw, "Hola mundos")
 	template, err := template.ParseFiles("index.html")
 
-	usuario := User{"Sota", 24}
+	usuario := User{"Sota", 24, true, false}
 
 	if err != nil {
 		panic(err)
