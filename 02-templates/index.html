@@ -47,5 +47,11 @@
     {{if gt .Edad 22}}
         <p>Es mayor a 22 ages</p>
     {{end}}
+
+    <ul>
+        {{range .Cursos}}
+            <li>{{.Name}}</li>
+        {{end}}
+    </ul>
 </body>
 </html>
