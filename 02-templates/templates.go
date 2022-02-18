@@ -7,15 +7,15 @@ import (
 	"net/http"
 )
 
-/* type User struct {
-	Name   string
-	Edad   int
-	Status bool
+type User struct {
+	Name string
+	Edad int
+	/* Status bool
 	Admin  bool
-	Cursos []Curso
+	Cursos []Curso */
 }
 
-type Curso struct {
+/* type Curso struct {
 	Name string
 } */
 
@@ -39,12 +39,13 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 	funciones := template.FuncMap{
 		"saludar": Saludar,
 	}
+	usuario := User{"Sota", 24}
 	template, err := template.New("index.html").Funcs(funciones).
-		ParseFiles("index.html")
+		ParseFiles("index.html", "base.html")
 	if err != nil {
 		panic(err)
 	} else {
-		template.Execute(rw, nil)
+		template.Execute(rw, usuario)
 	}
 }
 
