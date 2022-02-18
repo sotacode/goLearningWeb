@@ -40,13 +40,10 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 		"saludar": Saludar,
 	}
 	usuario := User{"Sota", 24}
-	template, err := template.New("index.html").Funcs(funciones).
-		ParseFiles("index.html", "base.html")
-	if err != nil {
-		panic(err)
-	} else {
-		template.Execute(rw, usuario)
-	}
+	template := template.Must(template.New("index.html").Funcs(funciones).
+		ParseFiles("index.html", "base.html"))
+
+	template.Execute(rw, usuario)
 }
 
 func main() {
