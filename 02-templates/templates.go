@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-type User struct {
+/* type User struct {
 	Name   string
 	Edad   int
 	Status bool
@@ -17,23 +17,34 @@ type User struct {
 
 type Curso struct {
 	Name string
+} */
+
+//Funciones
+func Saludar(nombre string) string {
+	return "Hola " + nombre + " desde funcion"
 }
 
 func Index(rw http.ResponseWriter, r *http.Request) {
 	//fmt.Fprintln(rw, "Hola mundos")
-	c1 := Curso{"GoWeb"}
+	/* c1 := Curso{"GoWeb"}
 	c2 := Curso{"React"}
 	c3 := Curso{"Node"}
-	c4 := Curso{"Flutter"}
-	template, err := template.ParseFiles("index.html")
+	c4 := Curso{"Flutter"} */
+	//template, err := template.ParseFiles("index.html")
 
-	cursos := []Curso{c1, c2, c3, c4}
-	usuario := User{"Sota", 24, true, false, cursos}
+	/* cursos := []Curso{c1, c2, c3, c4} */
+	/* usuario := User{"Sota", 24, true, false, cursos}
+	 */
 
+	funciones := template.FuncMap{
+		"saludar": Saludar,
+	}
+	template, err := template.New("index.html").Funcs(funciones).
+		ParseFiles("index.html")
 	if err != nil {
 		panic(err)
 	} else {
-		template.Execute(rw, usuario)
+		template.Execute(rw, nil)
 	}
 }
 
