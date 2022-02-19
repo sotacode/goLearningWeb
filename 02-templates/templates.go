@@ -24,7 +24,24 @@ func Saludar(nombre string) string {
 	return "Hola " + nombre + " desde funcion"
 }
 
+var funciones = template.FuncMap{
+	"saludar": Saludar,
+}
+var templates = template.Must(template.New("t").Funcs(funciones).
+	ParseGlob("templates/**/*.html"))
+
+func renderTemplate(rw http.ResponseWriter, name string, data interface{}) {
+	err := templates.ExecuteTemplate(rw, name, data)
+	if err != nil {
+		panic(err)
+	}
+}
+
 func Index(rw http.ResponseWriter, r *http.Request) {
+	usuario := User{"Sota", 24}
+
+	renderTemplate(rw, "index.html", usuario)
+
 	//fmt.Fprintln(rw, "Hola mundos")
 	/* c1 := Curso{"GoWeb"}
 	c2 := Curso{"React"}
@@ -36,14 +53,15 @@ func Index(rw http.ResponseWriter, r *http.Request) {
 	/* usuario := User{"Sota", 24, true, false, cursos}
 	 */
 
-	funciones := template.FuncMap{
-		"saludar": Saludar,
-	}
-	usuario := User{"Sota", 24}
-	template := template.Must(template.New("index.html").Funcs(funciones).
-		ParseFiles("index.html", "base.html"))
+	/* template := template.Must(template.New("index.html").Funcs(funciones).
+	ParseFiles("index.html", "base.html"))
+	*/
+	//template.Execute(rw, usuario)
 
-	template.Execute(rw, usuario)
+}
+
+func Registro(rw http.ResponseWriter, r *http.Request) {
+	renderTemplate(rw, "registro.html", nil)
 }
 
 func main() {
@@ -52,6 +70,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", Index)
+	mux.HandleFunc("/registro", Registro)
 
 	//servidor
 	server := &http.Server{
