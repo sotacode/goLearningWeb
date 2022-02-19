@@ -1,0 +1,48 @@
+<!-- <p>{{ saludar "Sota"}}</p>
+
+    <h1>Hola!! los miembros son:</h1>
+    <h3>{{ .Name }} con edad {{.Edad}}</h3>
+
+     VARIABLES 
+
+    {{with $valor := "Mi variable"}}
+        <p>{{$valor}}</p>
+    {{ end }}
+
+    Operadores logicos
+        not     !
+        and     &&
+        or      ||
+   
+    Operadores condicionale
+        eq      ==
+        ne      !=
+        lt      <
+        le      <=
+        gt      >
+        ge      >=
+   
+
+    <h1>Usuarios:</h1>
+    {{ if .Status }}
+        <p>Usuario activo en la plataforma</p>
+    {{else}}
+        <p>Usuario NO esta activo</p>
+    {{end}}
+
+    {{ if (and .Status .Admin )}}
+        <p>Eres admin y estas activo</p>
+    {{else}}
+        <p>No cuentas con rango administrador o no estas activo</p>
+    {{end}}
+
+
+    {{if gt .Edad 22}}
+        <p>Es mayor a 22 ages</p>
+    {{end}}
+
+    <ul>
+        {{range .Cursos}}
+            <li>{{.Name}}</li>
+        {{end}}
+    </ul> -->
