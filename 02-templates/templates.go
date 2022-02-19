@@ -30,10 +30,18 @@ var funciones = template.FuncMap{
 var templates = template.Must(template.New("t").Funcs(funciones).
 	ParseGlob("templates/**/*.html"))
 
+var errorTemplate = template.Must(template.ParseFiles("templates/error/error.html"))
+
+func handlerError(rw http.ResponseWriter, status int) {
+	rw.WriteHeader(status)
+	errorTemplate.Execute(rw, nil)
+}
+
 func renderTemplate(rw http.ResponseWriter, name string, data interface{}) {
 	err := templates.ExecuteTemplate(rw, name, data)
 	if err != nil {
-		panic(err)
+		//http.Error(rw, "No es posible retornar el template", http.StatusInternalServerError)
+		handlerError(rw, http.StatusInternalServerError)
 	}
 }
 
